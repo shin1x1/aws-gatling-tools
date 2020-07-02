@@ -208,7 +208,8 @@ resource "aws_ecs_service" "main" {
   name = "api-server"
 
   depends_on = [
-    aws_alb_target_group.api_server]
+    aws_alb_listener.api_server
+  ]
 
   cluster = aws_ecs_cluster.ecs_cluster.id
 

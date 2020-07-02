@@ -118,7 +118,7 @@ object Settings {
 
   val apiServerEcrSettings = Seq(
     region in Ecr := Region.getRegion(Regions.AP_NORTHEAST_1),
-    repositoryName in Ecr := "j5ik2o-aws-gatling-tools/api-server",
+    repositoryName in Ecr := "shin1x1-aws-gatling-tools/api-server",
     repositoryTags in Ecr ++= Seq(version.value),
     localDockerImage in Ecr := "j5ik2o/" + (packageName in Docker).value + ":" + (version in Docker).value,
     push in Ecr := ((push in Ecr) dependsOn (publishLocal in Docker, login in Ecr)).value
@@ -126,14 +126,14 @@ object Settings {
 
   lazy val gatlingRunnerEcrSettings = Seq(
     region in Ecr := Region.getRegion(Regions.AP_NORTHEAST_1),
-    repositoryName in Ecr := "j5ik2o-aws-gatling-tools/gatling-runner",
+    repositoryName in Ecr := "shin1x1-aws-gatling-tools/gatling-runner",
     localDockerImage in Ecr := "j5ik2o/" + (packageName in Docker).value + ":" + (version in Docker).value,
     push in Ecr := ((push in Ecr) dependsOn (publishLocal in Docker, login in Ecr)).value
   )
 
   lazy val gatlingAggregateRunnerEcrSettings = Seq(
     region in Ecr := Region.getRegion(Regions.AP_NORTHEAST_1),
-    repositoryName in Ecr := "j5ik2o-aws-gatling-tools/gatling-aggregate-runner",
+    repositoryName in Ecr := "shin1x1-aws-gatling-tools/gatling-aggregate-runner",
     localDockerImage in Ecr := "j5ik2o/" + (packageName in Docker).value + ":" + (version in Docker).value,
     push in Ecr := ((push in Ecr) dependsOn (publishLocal in Docker, login in Ecr)).value
   )
@@ -194,12 +194,12 @@ object Settings {
       EcsAsyncClient(underlying)
     },
     runTaskEcsCluster in gatling := sys.env
-      .getOrElse("GATLING_ECS_CLUSTER", "j5ik2o-aws-gatling-tools-ecs"),
+      .getOrElse("GATLING_ECS_CLUSTER", "shin1x1-aws-gatling-tools-ecs"),
     runTaskTaskDefinition in gatling := {
       getTaskDefinitionName(
         client = (runTaskEcsClient in gatling).value,
         awaitDuration = (runTaskAwaitDuration in gatling).value,
-        prefix = "j5ik2o-aws-gatling-tools-gatling-aggregate-runner"
+        prefix = "shin1x1-aws-gatling-tools-gatling-aggregate-runner"
       )
     },
     runTaskAwaitDuration in gatling := Duration.Inf,
@@ -216,7 +216,7 @@ object Settings {
           getTaskDefinitionName(
             client = (runTaskEcsClient in gatling).value,
             awaitDuration = (runTaskAwaitDuration in gatling).value,
-            prefix = "j5ik2o-aws-gatling-tools-gatling-runner"
+            prefix = "shin1x1-aws-gatling-tools-gatling-runner"
           )
         },
         "GATLING_COUNT" -> sys.env("GATLING_COUNT"),
@@ -232,7 +232,7 @@ object Settings {
           getTaskDefinitionName(
             client = (runTaskEcsClient in gatling).value,
             awaitDuration = (runTaskAwaitDuration in gatling).value,
-            prefix = "j5ik2o-aws-gatling-tools-gatling-s3-reporter"
+            prefix = "shin1x1-aws-gatling-tools-gatling-s3-reporter"
           )
         },
         "GATLING_BUCKET_NAME" -> sys.env("GATLING_BUCKET_NAME")

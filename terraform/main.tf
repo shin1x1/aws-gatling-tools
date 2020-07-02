@@ -8,7 +8,7 @@ provider "aws" {
   profile = "aws-gatling-tools"
 }
 
-data "aws_availability_zones" "available" {
+data "aws_caller_identity" "current" {
 }
 
 locals {
@@ -30,7 +30,7 @@ module "vpc" {
   name = var.vpc_name
   cidr = var.vpc_cidr
 
-  azs              = data.aws_availability_zones.available.names
+  azs              = var.aws_az
   public_subnets   = var.aws_subnet_public
 
   enable_dns_hostnames = true
@@ -59,7 +59,7 @@ module "ecr_api_server" {
   aws_subnet_public = var.aws_subnet_public
   api_server_ecs_cluster_name = var.api_server_ecs_cluster_name
   api_server_ecr_name = var.api_server_ecr_name
-  aws_account_id = var.account_id
+  aws_account_id = "${data.aws_caller_identity.current.account_id}"
 }
 
 module "gatling" {

@@ -1,8 +1,6 @@
 prefix = "j5ik2o-aws-gatling-tools"
 owner = "j5ik2o"
 
-account_id = "XXXXXX"
-
 vpc_name = "j5ik2o-vpc"
 
 aws_az = ["ap-northeast-1a", "ap-northeast-1c", "ap-northeast-1d"]
